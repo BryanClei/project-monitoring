@@ -16,11 +16,34 @@ class TeamController extends Controller
 {
     public function index()
     {
-        return $teams = Team::useFilters()->dynamicPaginate();
+        $teams = Team::useFilters()->dynamicPaginate();
+
+        if ($teams->isEmpty()) {
+            return GlobalFunctions::notFound(Messages::NO_DATA_FOUND);
+        }
+
+        TeamResource::collection($teams);
+
+        return GlobalFunctions::responseFunction(
+            Messages::TEAM_DISPLAY,
+            $teams
+        );
     }
 
-    public function show()
+    public function show($id)
     {
+        $teams = Team::where("id", $id)->first();
+
+        if (!$teams) {
+            return GlobalFunctions::notFound(Messages::NO_DATA_FOUND);
+        }
+
+        new TeamResource($teams);
+
+        return GlobalFunctions::responseFunction(
+            Messages::TEAM_DISPLAY,
+            $teams
+        );
     }
 
     public function store(StoreRequest $request)

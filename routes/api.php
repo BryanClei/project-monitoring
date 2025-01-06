@@ -23,10 +23,13 @@ use App\Http\Controllers\Api\MonitoringController;
 //     return $request->user();
 // });
 Route::post("login", [UserController::class, "login"]);
-Route::apiResource("user", UserController::class);
-Route::apiResource("team", TeamController::class);
-Route::apiResource("role", RoleController::class);
 Route::group(["middleware" => ["auth:sanctum"]], function () {
+    Route::apiResource("team", TeamController::class);
+    Route::apiResource("role", RoleController::class);
+
+    Route::post("user/tag_system", [UserController::class, "tag_system"]);
+    Route::patch("user/archived/{id}", [UserController::class, "destroy"]);
+    Route::apiResource("user", UserController::class);
     Route::apiResource("project", ProjectController::class);
     Route::apiResource("monitoring", MonitoringController::class);
 });

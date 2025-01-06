@@ -3,6 +3,7 @@
 namespace App\Functions;
 
 use App\Response\Messages;
+use App\Http\Resources\LoginResource;
 
 class GlobalFunctions
 {

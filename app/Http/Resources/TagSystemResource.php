@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TeamResource extends JsonResource
+class TagSystemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,11 @@ class TeamResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "code" => $this->code,
-            "name" => $this->name,
+            "user_id" => $this->users,
+            "system" => $this->projects,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "deleted_at" => $this->deleted_at,1
+            "deleted_at" => $this->deleted_at,
         ];
     }
 }

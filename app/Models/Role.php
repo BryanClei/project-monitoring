@@ -12,6 +12,7 @@ class Role extends Model
 {
     use HasFactory, Filterable, SoftDeletes;
 
+    protected $table = "role";
     protected string $default_filters = RoleFilters::class;
     protected $fillable = ["name", "access_permission"];
 }

@@ -8,5 +8,10 @@ class MonitoringFilters extends QueryFilters
 {
     protected array $allowedFilters = [];
 
-    protected array $columnSearch = [];
+    protected array $columnSearch = [
+        "system_id",
+        "user_id",
+        "module",
+        "status",
+    ];
 }

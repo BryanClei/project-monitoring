@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TeamResource extends JsonResource
+class LoginResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,12 @@ class TeamResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "code" => $this->code,
-            "name" => $this->name,
-            "created_at" => $this->created_at,
+            "username" => $this->username,
             "updated_at" => $this->updated_at,
-            "deleted_at" => $this->deleted_at,1
+            "deleted_at" => $this->deleted_at,
+            "token" => $this->token,
+            "role" => new RoleResource($this->role),
+            "system" => $this->systems,
         ];
     }
 }

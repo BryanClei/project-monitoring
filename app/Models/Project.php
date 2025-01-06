@@ -14,4 +14,9 @@ class Project extends Model
 
     protected string $default_filters = ProjectFilters::class;
     protected $fillable = ["name"];
+
+    public function user_system()
+    {
+        return $this->belongsTo(UserSystem::class, "user_id", "id");
+    }
 }

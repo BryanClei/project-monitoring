@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\UserSystem;
 use App\Filters\UserFilters;
 use Laravel\Sanctum\HasApiTokens;
 use Essa\APIToolKit\Filters\Filterable;
@@ -24,4 +25,19 @@ class User extends Authenticatable
     ];
 
     protected $hidden = ["password", "remember_token"];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, "role_id", "id");
+    }
+
+    public function systems()
+    {
+        return $this->hasMany(UserSystem::class, "user_id", "id");
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Team::class, "group_id", "id");
+    }
 }

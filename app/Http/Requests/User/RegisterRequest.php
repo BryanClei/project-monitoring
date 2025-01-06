@@ -22,11 +22,53 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "fullname" => "required",
-            "group_id" => "required",
-            "username" => "required",
+            "fullname" => ["required", "string"],
+            "group_id" => ["required", "exists:teams,id,deleted_at,NULL"],
+            "username" => ["required", "unique:users,username"],
             "password" => "required",
-            "re_password" => "required",
+            "confirm_password" => ["required", "same:password"],
+            "systems" => ["array", "nullable"],
+            "systems.*.system_id" => [
+                "nullable",
+                "exists:projects,id",
+                "not_in:''",
+            ],
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            "fullname" => "Full name",
+            "group_id" => "Group ID",
+            "username" => "Username",
+            "password" => "Password",
+            "confirm_password" => "Confirm Password",
+            "systems.*.system_id" => "System ID",
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "required" => "The :attribute is required.",
+            "unique" => "The :attribute is already taken.",
+            "exists" => "The :attribute does not exist.",
+            "same" => "The :attribute must match the password.",
+        ];
+    }
+
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //         if ($this->password !== $this->confirm_password) {
+    //             return $validator
+    //                 ->errors()
+    //                 ->add(
+    //                     "password",
+    //                     "Password and confirm password do not match."
+    //                 );
+    //         }
+    //     });
+    // }
 }

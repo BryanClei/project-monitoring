@@ -10,7 +10,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Monitoring extends Model
 {
-
     protected string $default_filters = MonitoringFilters::class;
     use HasFactory, Filterable, SoftDeletes;
+
+    protected $table = "monitoring";
+
+    protected $fillable = [
+        "system_id",
+        "user_id",
+        "module",
+        "description",
+        "raise_date",
+        "start_date",
+        "end_date",
+        "remarks",
+        "status",
+    ];
 }
